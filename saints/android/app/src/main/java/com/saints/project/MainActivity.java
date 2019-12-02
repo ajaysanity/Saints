@@ -1,4 +1,4 @@
-package com.company_name.project;
+package com.saints.saints;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

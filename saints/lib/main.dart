@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:project/iphone_xxs11_pro1_widget/iphone_xxs11_pro1_widget.dart';
-import 'package:project/iphone_xxs11_pro2_widget/iphone_xxs11_pro2_widget.dart';
-import 'package:project/iphone_xxs11_pro3_widget/iphone_xxs11_pro3_widget.dart';
-import 'package:project/iphone_xxs11_pro4_widget/iphone_xxs11_pro4_widget.dart';
+import 'package:Saints/iphone_xxs11_pro1_widget/iphone_xxs11_pro1_widget.dart';
+import 'package:Saints/iphone_xxs11_pro2_widget/iphone_xxs11_pro2_widget.dart';
+import 'package:Saints/iphone_xxs11_pro3_widget/iphone_xxs11_pro3_widget.dart';
+import 'package:Saints/iphone_xxs11_pro4_widget/iphone_xxs11_pro4_widget.dart';
 
 void main() => runApp(App());
 
