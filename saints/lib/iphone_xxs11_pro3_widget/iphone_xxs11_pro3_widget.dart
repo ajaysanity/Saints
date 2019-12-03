@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+import 'package:Saints/providers/globals.dart' as globals;
 
 class IPhoneXXS11Pro3Widget extends StatelessWidget {
   
@@ -42,10 +43,9 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Container(
-                      width: 30,
-                      height: 30,
-                      child: Image.asset(
-                        "assets/images/group-2.png",
+                      width: 54,
+                      height: 60,
+                      child:  Image.network(globals.userProfile["picture"]["data"]["url"],
                         fit: BoxFit.none,
                       ),
                     ),

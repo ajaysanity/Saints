@@ -10,13 +10,15 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
   final facebookLogin = FacebookLogin();
 
   _loginWithFB(context) async{
-
     
     final result = await facebookLogin.logInWithReadPermissions(['email']);
     
-        print('dfgdfgdfhfsghdfgjhdfgjhdfhj TEST ${result}' );
+        print('--------------------------------TEST ${result.hashCode}   --- ' );
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
+      
+    
+        print('--------------------------------TEST Success' );
         final token = result.accessToken.token;
         final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
         final profile = JSON.jsonDecode(graphResponse.body);
@@ -27,16 +29,23 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
         break;
 
       case FacebookLoginStatus.cancelledByUser:
+    
+        print('--------------------------------TEST CANCELLED' );
          globals.isLoggedIn = false;
         break;
       case FacebookLoginStatus.error:
+    
+        print('--------------------------------TEST ERROR ${result.errorMessage}' );
          globals.isLoggedIn = false;
         break;
     }
 
       
 
+
+
       
+
 
   }
 
@@ -45,35 +54,7 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
       globals.isLoggedIn = false;
   }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     return MaterialApp(
-//       home: Scaffold(
-//         body: Center(
-//             child: globals.isLoggedIn
-//                 ? Column(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: <Widget>[
-//                       Image.network(globals.userProfile["picture"]["data"]["url"], height: 50.0, width: 50.0,),
-//                       Text(globals.userProfile["name"]),
-//                       OutlineButton( child: Text("Logout"), onPressed: (){
-//                         _logout();
-//                       },)
-//                     ],
-//                   )
-//                 : Center(
-//                     child: OutlineButton(
-//                       child: Text("Login with Facebook"),
-//                       onPressed: () {
-//                         _loginWithFB();
-//                       },
-//                     ),
-//                   )),
-//       ),
-//     );
-//   }
-// }
+
   @override
   Widget build(BuildContext context) {
   
@@ -172,9 +153,8 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
                         ),
                       ),
                         onTap: () {
-                            Navigator.pushNamed(context, "/home");
+                            checkLogin(context);
                          }
-
                       )
                     ),
                      Spacer(),
@@ -220,7 +200,7 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
                             ),
                             Positioned(
                               child: Text(
-                                "Log In using Facebook",
+                                "Use Facebook",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 255, 255, 255),
                                   fontSize: 20,
@@ -262,5 +242,11 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+checkLogin(context) {
+  if (!globals.isLoggedIn) {
+    Navigator.pushNamed(context, "/home");    
   }
 }
