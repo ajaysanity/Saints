@@ -30,7 +30,7 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-
+    // Changed all project package
     defaultConfig {
         applicationId "com.saints.saints"
         minSdkVersion 16

@@ -13,12 +13,9 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
     
     final result = await facebookLogin.logInWithReadPermissions(['email']);
     
-        print('--------------------------------TEST ${result.hashCode}   --- ' );
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
-      
-    
-        print('--------------------------------TEST Success' );
+        print('Login Success' );
         final token = result.accessToken.token;
         final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
         final profile = JSON.jsonDecode(graphResponse.body);
@@ -30,30 +27,17 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
 
       case FacebookLoginStatus.cancelledByUser:
     
-        print('--------------------------------TEST CANCELLED' );
+        print('Login Cancelled' );
          globals.isLoggedIn = false;
         break;
       case FacebookLoginStatus.error:
     
-        print('--------------------------------TEST ERROR ${result.errorMessage}' );
+        print('Login Error, Error: ${result.errorMessage}' );
          globals.isLoggedIn = false;
         break;
     }
 
-      
-
-
-
-      
-
-
   }
-
-  _logout(){
-    facebookLogin.logOut();
-      globals.isLoggedIn = false;
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -244,7 +228,7 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
     );
   }
 }
-
+// for authentication login
 checkLogin(context) {
   if (!globals.isLoggedIn) {
     Navigator.pushNamed(context, "/home");    
