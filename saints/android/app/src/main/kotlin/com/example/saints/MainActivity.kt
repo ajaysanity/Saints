@@ -1,4 +1,4 @@
-package com.example.saints
+package com.saints.saints
 
 import android.os.Bundle
 

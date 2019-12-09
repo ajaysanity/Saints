@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:project/iphone_xxs11_pro1_widget/iphone_xxs11_pro1_widget.dart';
-import 'package:project/iphone_xxs11_pro2_widget/iphone_xxs11_pro2_widget.dart';
-import 'package:project/iphone_xxs11_pro3_widget/iphone_xxs11_pro3_widget.dart';
-import 'package:project/iphone_xxs11_pro4_widget/iphone_xxs11_pro4_widget.dart';
+import 'package:Saints/iphone_xxs11_pro1_widget/iphone_xxs11_pro1_widget.dart';
+import 'package:Saints/iphone_xxs11_pro2_widget/iphone_xxs11_pro2_widget.dart';
+import 'package:Saints/iphone_xxs11_pro3_widget/iphone_xxs11_pro3_widget.dart';
+import 'package:Saints/iphone_xxs11_pro4_widget/iphone_xxs11_pro4_widget.dart';
+import 'package:Saints/profile_page/profile.dart';
 
 void main() => runApp(App());
 
@@ -31,8 +32,8 @@ static Route<dynamic> generateRoute(RouteSettings settings) {
         return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro2Widget());
       case homeRoute:
         return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro3Widget());
-      case testRoute:
-        return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro4Widget());
+      case profileRoute:
+        return MaterialPageRoute(builder: (_) => Profile());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

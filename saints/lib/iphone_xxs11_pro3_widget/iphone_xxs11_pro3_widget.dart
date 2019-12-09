@@ -10,6 +10,7 @@ class IPhoneXXS11Pro3Widget extends StatefulWidget {
   _IPhoneXXS11Pro3WidgetState createState() => _IPhoneXXS11Pro3WidgetState();
 }
 
+import 'package:Saints/providers/globals.dart' as globals;
 
 class _IPhoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   Map data;
@@ -37,6 +38,33 @@ class _IPhoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: new AppBar(
+         centerTitle: true,
+         title: new Text('Saints'),
+         ),
+      drawer: new Drawer(
+        child: Container (
+          alignment: Alignment.center,
+          child: ListView(
+          children: <Widget>[
+            new UserAccountsDrawerHeader(
+              accountName: new Text(globals.userProfile['name']),
+              accountEmail: new Text(globals.userProfile['email']),
+              currentAccountPicture: new CircleAvatar(
+                backgroundImage: new NetworkImage(globals.userProfile["picture"]["data"]["url"]),
+              ),
+            ),
+            new ListTile(
+              title: new Text('Home'),
+              onTap: () {
+                Navigator.of(context).pop();
+
+              },
+            ),
+          ],
+        ),
+        )
+      ),
       body: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -49,39 +77,38 @@ class _IPhoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: 33,
-              margin: EdgeInsets.only(left: 21, top: 22, right: 24),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      margin: EdgeInsets.only(top: 1),
-                      child: Image.asset(
-                        "assets/images/menu--close.png",
-                        fit: BoxFit.none,
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      child: Image.asset(
-                        "assets/images/group-2.png",
-                        fit: BoxFit.none,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   height: 33,
+            //   margin: EdgeInsets.only(left: 21, top: 22, right: 24),
+            //   child: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.stretch,
+            //     children: [
+            //       Align(
+            //         alignment: Alignment.topLeft,
+            //         child: Container(
+            //           width: 32,
+            //           height: 32,
+            //           margin: EdgeInsets.only(top: 1),
+            //           child: Image.asset(
+            //             "assets/images/menu--close.png",
+            //             fit: BoxFit.none,
+            //           ),
+            //         ),
+            //       ),
+            //       Spacer(),
+            //       Align(
+            //         alignment: Alignment.topLeft,
+            //         child: Container(
+            //           width: 54,
+            //           height: 60,
+            //           child:  Image.network(globals.userProfile["picture"]["data"]["url"],
+            //             fit: BoxFit.none,
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Align(
               alignment: Alignment.topLeft,
               child: Container(

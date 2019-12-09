@@ -1,4 +1,4 @@
-name: project
+name: Saints
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -11,7 +11,6 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter

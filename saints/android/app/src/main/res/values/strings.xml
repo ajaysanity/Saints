@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Saints</string>
+
+    <!-- Replace "1399423130233060" with your Facebook App ID here. -->
+    <string name="facebook_app_id">1399423130233060</string>
+
+    <!--
+      Replace "fb1399423130233060" with your Facebook App ID here.
+      **NOTE**: The scheme needs to start with `fb` and then your ID.
+    -->
+    <string name="fb_login_protocol_scheme">fb1399423130233060</string>
+</resources>
