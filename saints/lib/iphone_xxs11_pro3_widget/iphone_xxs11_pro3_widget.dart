@@ -1,6 +1,10 @@
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:Saints/providers/globals.dart' as globals;
+=======
+import 'package:flutter/material.dart';
+>>>>>>> parent of bdf2ed3... users can get quote from the api
 =======
 import 'package:flutter/material.dart';
 >>>>>>> parent of bdf2ed3... users can get quote from the api
