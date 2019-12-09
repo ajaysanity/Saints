@@ -1,12 +1,41 @@
-
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'quote.model.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+
+class IPhoneXXS11Pro3Widget extends StatefulWidget {
+  @override
+  _IPhoneXXS11Pro3WidgetState createState() => _IPhoneXXS11Pro3WidgetState();
+}
 
 
-class IPhoneXXS11Pro3Widget extends StatelessWidget {
-  
+class _IPhoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
+  Map data;
+  String author;
+  String quote;
+  Future getQuote() async {
+    http.Response response = await http.get(
+        "https://lrmwoxghba.execute-api.us-east-1.amazonaws.com/dev/quotes/rgiiylxbicxc/00d73220-1278-11ea-9930-cdc32d0de76f");
+    if(response.statusCode == 200){
+      setState(() {
+        data = json.decode(response.body);
+        quote = data["body"]["quote"];
+        author = data["body"]["author"];
+      });
+    }else{
+      throw Exception('Failed to load quote');
+    }
+  }
+@override
+  void initState(){
+    super.initState();
+    getQuote();
+}
+
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       body: Container(
         constraints: BoxConstraints.expand(),
@@ -57,7 +86,7 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Container(
                 width: 339,
-                height: 321,
+                height: 420,
                 margin: EdgeInsets.only(left: 12, top: 84),
                 child: Stack(
                   alignment: Alignment.center,
@@ -67,7 +96,7 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                       top: 0,
                       child: Container(
                         width: 339,
-                        height: 321,
+                        height: 300,
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
@@ -86,14 +115,15 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              top: 94,
+                              top: 80,
                               child: Container(
-                                width: 326,
-                                child: Text(
-                                  "If we pray we believe;\nIf we believe, we will love;\nIf we love, we will serve;",
+                                width: 330,
+                                child: AutoSizeText(
+                                  quote,
+                                  presetFontSizes: [35, 21, 16],
+                                  maxLines: 10,
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
-                                    fontSize: 26,
                                     letterSpacing: 0.884,
                                     fontFamily: "Roboto",
                                   ),
@@ -107,10 +137,7 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                               child: Container(
                                 width: 54,
                                 height: 50,
-                                child: Image.asset(
-                                  "assets/images/mask-group-2-2.png",
-                                  fit: BoxFit.none,
-                                ),
+
                               ),
                             ),
                           ],
@@ -118,12 +145,14 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      left: 81,
-                      top: 282,
+                      left: 50,
+                      top: 350,
                       child: Container(
-                        width: 176,
-                        child: Text(
-                          "Mother Theresa",
+                        width: 300,
+                        child: AutoSizeText(
+                         author,
+                          presetFontSizes: [20, 14],
+                          maxLines: 1,
                           style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 20,
@@ -188,15 +217,19 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: 40,
-                            height: 43,
-                            margin: EdgeInsets.only(left: 18),
-                            child: Image.asset(
-                              "assets/images/group-1.png",
-                              fit: BoxFit.none,
+                          GestureDetector(
+                            onTap: () => getQuote(),
+                            child: Container(
+                              width:50,
+                              height: 50,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(0),
+                                  child: Image.asset(
+                                    "assets/images/refresh.png",
+                                    fit: BoxFit.fill,
+                                  )),
                             ),
                           ),
                         ],
