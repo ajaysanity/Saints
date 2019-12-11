@@ -1,9 +1,10 @@
 
+
+import 'package:Saints/providers/globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:Saints/providers/globals.dart' as globals;
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
-
 class IPhoneXXS11Pro3Widget extends StatelessWidget {
   //  _shareFb(context, text) async{
   //   await SocialSharePlugin.shareToFeedFacebook('caption', text);
@@ -104,19 +105,14 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                             Positioned(
                               left: 11,
                               top: 271,
-                               child: new GestureDetector(
-                                  child: Container(
-                                  width: 54,
-                                  height: 50,
-                                  child: Image.asset(
-                                    "assets/images/mask-group-2-2.png",
-                                    fit: BoxFit.none,
-                                  ),
+                              child: Container(
+                                width: 54,
+                                height: 50,
+                                child: Image.asset(
+                                  "assets/images/mask-group-2-2.png",
+                                  fit: BoxFit.none,
                                 ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/profile");    
-                                }
-                               )
+                              ),
                             ),
                           ],
                         ),
