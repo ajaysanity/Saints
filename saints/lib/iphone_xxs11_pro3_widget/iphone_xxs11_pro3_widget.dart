@@ -1,10 +1,15 @@
 
 import 'package:flutter/material.dart';
-
 import 'package:Saints/providers/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'package:share/share.dart';
 
 class IPhoneXXS11Pro3Widget extends StatelessWidget {
-  
+  //  _shareFb(context, text) async{
+  //   await SocialSharePlugin.shareToFeedFacebook('caption', text);
+  // }
+
+ 
   @override
   Widget build(BuildContext context) {
   
@@ -48,38 +53,6 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Container(
-            //   height: 33,
-            //   margin: EdgeInsets.only(left: 21, top: 22, right: 24),
-            //   child: Row(
-            //     crossAxisAlignment: CrossAxisAlignment.stretch,
-            //     children: [
-            //       Align(
-            //         alignment: Alignment.topLeft,
-            //         child: Container(
-            //           width: 32,
-            //           height: 32,
-            //           margin: EdgeInsets.only(top: 1),
-            //           child: Image.asset(
-            //             "assets/images/menu--close.png",
-            //             fit: BoxFit.none,
-            //           ),
-            //         ),
-            //       ),
-            //       Spacer(),
-            //       Align(
-            //         alignment: Alignment.topLeft,
-            //         child: Container(
-            //           width: 54,
-            //           height: 60,
-            //           child:  Image.network(globals.userProfile["picture"]["data"]["url"],
-            //             fit: BoxFit.none,
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Align(
               alignment: Alignment.topLeft,
               child: Container(
@@ -208,7 +181,8 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                   Spacer(),
                   Align(
                     alignment: Alignment.bottomLeft,
-                    child: Container(
+                    child: new GestureDetector(
+                       child: Container(
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
@@ -234,6 +208,8 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                         ],
                       ),
                     ),
+                      onTap: () =>  share(context),
+                    )
                   ),
                 ],
               ),
@@ -243,4 +219,11 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
       ),
     );
   }
+}
+ void share(BuildContext context) {
+  final RenderBox box = context.findRenderObject();
+
+  Share.share("If we pray we believe; If we believe, we will love; If we love, we will serve.   -Mother Theresa",
+      subject: 'Saints Quotes',
+      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
 }
