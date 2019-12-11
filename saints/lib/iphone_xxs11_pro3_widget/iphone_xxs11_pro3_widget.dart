@@ -5,12 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:Saints/providers/globals.dart' as globals;
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
-class IPhoneXXS11Pro3Widget extends StatelessWidget {
-  //  _shareFb(context, text) async{
-  //   await SocialSharePlugin.shareToFeedFacebook('caption', text);
-  // }
 
- 
+class IPhoneXXS11Pro3Widget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
   
@@ -204,6 +201,7 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                         ],
                       ),
                     ),
+                    // Share 
                       onTap: () =>  share(context),
                     )
                   ),
@@ -216,9 +214,10 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
     );
   }
 }
+
  void share(BuildContext context) {
   final RenderBox box = context.findRenderObject();
-
+  // QUOTE to be shared can be passed here 
   Share.share("If we pray we believe; If we believe, we will love; If we love, we will serve.   -Mother Theresa",
       subject: 'Saints Quotes',
       sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
