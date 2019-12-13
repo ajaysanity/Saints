@@ -15,6 +15,10 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   Map data;
   String author;
   String quote;
+  Icon _searchIcon = new Icon(Icons.search, color: Colors.white);
+  Widget appBarTitle = new Text( 'Search Saints' );
+  final TextEditingController _filter = new TextEditingController();
+
   // ignore: missing_return
   Future getQuote() async {
     var response = await http
@@ -27,7 +31,27 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
       });
 
   }
-
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this.appBarTitle = new TextField(
+          controller: _filter,
+          style: TextStyle(color: Colors.white),
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search, color: Colors.white),
+              hintText: 'Search Saints',
+              hintStyle: TextStyle(color: Colors.white),
+            border: InputBorder.none
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(Icons.search);
+        this.appBarTitle = new Text( 'Saints' );
+        _filter.clear();
+      }
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -39,7 +63,14 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
     return Scaffold(
       appBar: new AppBar(
         centerTitle: true,
-        title: new Text('Saints'),
+        title: appBarTitle,
+        actions: <Widget>[
+          IconButton(
+            icon: _searchIcon,
+            tooltip: 'Search Saints',
+            onPressed: _searchPressed,
+          )
+        ]
       ),
       drawer: new Drawer(
           child: Container(
