@@ -1,44 +1,68 @@
-
-
 import 'package:Saints/providers/globals.dart' as globals;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:Saints/providers/globals.dart' as globals;
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
+import 'dart:async';
+import 'dart:convert';
 
-class IPhoneXXS11Pro3Widget extends StatelessWidget {
+class IPhoneXXS11Pro3Widget extends StatefulWidget {
+  @override
+  _IphoneXXS11Pro3WidgetState createState() => _IphoneXXS11Pro3WidgetState();
+}
+
+class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
+  Map data;
+  String author;
+  String quote;
+  // ignore: missing_return
+  Future getQuote() async {
+    var response = await http
+        .get("https://us-central1-saints-3506b.cloudfunctions.net/api/quote");
+      setState(() {
+        var datum = json.decode(response.body);
+        author = datum[0]['data']['author'];
+        quote = datum[0]['data']['quote'];
+
+      });
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getQuote();
+  }
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
-       appBar: new AppBar(
-         centerTitle: true,
-         title: new Text('Saints'),
-         ),
+      appBar: new AppBar(
+        centerTitle: true,
+        title: new Text('Saints'),
+      ),
       drawer: new Drawer(
-        child: Container (
-          alignment: Alignment.center,
-          child: ListView(
+          child: Container(
+        alignment: Alignment.center,
+        child: ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
               accountName: new Text(globals.userProfile['name']),
               accountEmail: new Text(globals.userProfile['email']),
               currentAccountPicture: new CircleAvatar(
-                backgroundImage: new NetworkImage(globals.userProfile["picture"]["data"]["url"]),
+                backgroundImage: new NetworkImage(
+                    globals.userProfile["picture"]["data"]["url"]),
               ),
             ),
             new ListTile(
               title: new Text('Home'),
               onTap: () {
                 Navigator.of(context).pop();
-
               },
             ),
           ],
         ),
-        )
-      ),
+      )),
       body: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -55,7 +79,7 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Container(
                 width: 339,
-                height: 321,
+                height: 390,
                 margin: EdgeInsets.only(left: 12, top: 84),
                 child: Stack(
                   alignment: Alignment.center,
@@ -84,11 +108,13 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              top: 94,
+                              top: 80,
                               child: Container(
-                                width: 326,
-                                child: Text(
-                                  "If we pray we believe;\nIf we believe, we will love;\nIf we love, we will serve;",
+                                width: 330,
+                                child: AutoSizeText(
+                                  quote.toString(),
+                                  presetFontSizes: [35, 21, 16],
+                                  maxLines: 10,
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     fontSize: 26,
@@ -99,29 +125,19 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Positioned(
-                              left: 11,
-                              top: 271,
-                              child: Container(
-                                width: 54,
-                                height: 50,
-                                child: Image.asset(
-                                  "assets/images/mask-group-2-2.png",
-                                  fit: BoxFit.none,
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
                     ),
                     Positioned(
-                      left: 81,
-                      top: 282,
+                      left: 50,
+                      top: 350,
                       child: Container(
-                        width: 176,
-                        child: Text(
-                          "Mother Theresa",
+                        width: 300,
+                        child: AutoSizeText(
+                          author.toString(),
+                          presetFontSizes: [20, 14],
+                          maxLines: 1,
                           style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
                             fontSize: 20,
@@ -139,7 +155,7 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
             Spacer(),
             Container(
               height: 80,
-              margin: EdgeInsets.only(left: 82, right: 82, bottom: 108),
+              margin: EdgeInsets.only(left: 50, right: 50, bottom: 108),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -173,38 +189,73 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
                   ),
                   Spacer(),
                   Align(
-                    alignment: Alignment.bottomLeft,
-                    child: new GestureDetector(
-                       child: Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          width: 4,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(40)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 43,
-                            margin: EdgeInsets.only(left: 18),
-                            child: Image.asset(
-                              "assets/images/group-1.png",
-                              fit: BoxFit.none,
+                      alignment: Alignment.bottomLeft,
+                      child: new GestureDetector(
+                        child: Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              width: 4,
                             ),
+                            borderRadius: BorderRadius.all(Radius.circular(40)),
                           ),
-                        ],
-                      ),
-                    ),
-                    // Share 
-                      onTap: () =>  share(context),
-                    )
-                  ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 40,
+                                height: 43,
+                                margin: EdgeInsets.only(left: 18),
+                                child: Image.asset(
+                                  "assets/images/group-1.png",
+                                  fit: BoxFit.none,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Share
+                        onTap: () => share(context),
+                      )),
+                  Spacer(),
+                  Align(
+                      alignment: Alignment.bottomLeft,
+                      child: new GestureDetector(
+                        child: Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              width: 4,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () => getQuote(),
+                                child: Container(
+                                  width: 40,
+                                  height: 43,
+                                  margin: EdgeInsets.only(left: 18),
+                                  child: Image.asset(
+                                    "assets/images/refresh.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Share
+                        onTap: () => share(context),
+                      )),
                 ],
               ),
             ),
@@ -215,10 +266,11 @@ class IPhoneXXS11Pro3Widget extends StatelessWidget {
   }
 }
 
- void share(BuildContext context) {
+void share(BuildContext context) {
   final RenderBox box = context.findRenderObject();
-  // QUOTE to be shared can be passed here 
-  Share.share("If we pray we believe; If we believe, we will love; If we love, we will serve.   -Mother Theresa",
+  // QUOTE to be shared can be passed here
+  Share.share(
+      "If we pray we believe; If we believe, we will love; If we love, we will serve.   -Mother Theresa",
       subject: 'Saints Quotes',
       sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
 }

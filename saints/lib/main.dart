@@ -31,7 +31,7 @@ static Route<dynamic> generateRoute(RouteSettings settings) {
         return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro2Widget());
       case homeRoute:
         return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro3Widget());
-      case profileRoute:
+      case testRoute:
         return MaterialPageRoute(builder: (_) => Profile());
       default:
         return MaterialPageRoute(
