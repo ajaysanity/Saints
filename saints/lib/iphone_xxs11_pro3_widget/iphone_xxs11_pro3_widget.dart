@@ -17,7 +17,7 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   String quote;
   Icon _searchIcon = new Icon(Icons.search, color: Colors.white);
   Widget appBarTitle = new Text( 'Search Saints' );
-  final TextEditingController _filter = new TextEditingController();
+  final TextEditingController _searchField = new TextEditingController();
 
   // ignore: missing_return
   Future getQuote() async {
@@ -31,27 +31,21 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
       });
 
   }
-  void _searchPressed() {
+
+  Future searchSaints() async{
+    const url = "https://us-central1-saints-3506b.cloudfunctions.net/api/search";
+
+    var response = await http
+        .get("$url?author=${_searchField.text}");
+
     setState(() {
-      if (this._searchIcon.icon == Icons.search) {
-        this._searchIcon = new Icon(Icons.close);
-        this.appBarTitle = new TextField(
-          controller: _filter,
-          style: TextStyle(color: Colors.white),
-          decoration: new InputDecoration(
-              prefixIcon: new Icon(Icons.search, color: Colors.white),
-              hintText: 'Search Saints',
-              hintStyle: TextStyle(color: Colors.white),
-            border: InputBorder.none
-          ),
-        );
-      } else {
-        this._searchIcon = new Icon(Icons.search);
-        this.appBarTitle = new Text( 'Saints' );
-        _filter.clear();
-      }
+      var datum = json.decode(response.body);
+
+      author = datum['data'][0]['author'];
+      quote = datum['data'][0]['quote'];
     });
   }
+
   @override
   void initState() {
     super.initState();
@@ -61,14 +55,25 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
         centerTitle: true,
-        title: appBarTitle,
+        title: Container(
+          child: TextField(
+            controller: _searchField,
+            style: TextStyle(color: Colors.white),
+            decoration: new InputDecoration(
+                hintText: 'Search Saints',
+                hintStyle: TextStyle(color: Colors.white),
+                border: InputBorder.none
+            ),
+          ),
+          alignment: Alignment.centerRight,
+        ),
         actions: <Widget>[
           IconButton(
             icon: _searchIcon,
             tooltip: 'Search Saints',
-            onPressed: _searchPressed,
+            onPressed: searchSaints,
           )
         ]
       ),
