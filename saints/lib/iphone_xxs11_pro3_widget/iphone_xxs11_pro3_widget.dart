@@ -78,32 +78,8 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
         ]
       ),
       drawer: new Drawer(
-<<<<<<< HEAD
         child: getWidget(context)
       ),
-=======
-          child: Container(
-        alignment: Alignment.center,
-        child: ListView(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-              accountName: new Text(globals.userProfile['name']),
-              accountEmail: new Text(globals.userProfile['email']),
-              currentAccountPicture: new CircleAvatar(
-                backgroundImage: new NetworkImage(
-                    globals.userProfile["picture"]["data"]["url"]),
-              ),
-            ),
-            new ListTile(
-              title: new Text('Home'),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-      )),
->>>>>>> 6e6268c0561697c0d5f3d70cf96e9273ec1e3462
       body: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -166,7 +142,6 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
                                 ),
                               ),
                             ),
-<<<<<<< HEAD
                             Positioned(
                               left: 11,
                               top: 271,
@@ -185,8 +160,6 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
                               )
                               
                             ),
-=======
->>>>>>> 6e6268c0561697c0d5f3d70cf96e9273ec1e3462
                           ],
                         ),
                       ),

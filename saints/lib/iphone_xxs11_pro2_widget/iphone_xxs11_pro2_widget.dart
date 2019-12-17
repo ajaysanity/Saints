@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:Saints/providers/globals.dart' as globals;
 
 // Login Page
@@ -80,21 +81,55 @@ checkLogin(context) {
           ),
         );
        
-       final UseFacebook = Material(
-          elevation: 5.0,
-          borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xff01A0C7),
-          child: MaterialButton(
-            minWidth: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: () {},
-            child: Text("Sign up",
-                textAlign: TextAlign.center,
-                style: style.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
-          ),
+       final signUpText = Material(
+          // elevation: 5.0,
+          color: Color.fromARGB(0, 255, 255, 255),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,      
+              children: <Widget>[
+                Container (
+                  child: Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            color: Color(0xff01A0C7),
+                            fontSize: 12,
+                            letterSpacing: 1.02,
+                            fontFamily: "Roboto",
+                          ),
+                          textAlign: TextAlign.center,
+                  )
+                ),
+                Container (
+                  margin: const EdgeInsets.only(bottom: 5.0),
+                  child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            color: Color(0xff01A0C7),
+                            fontSize: 14,
+                            letterSpacing: 1.02,
+                            fontFamily: "Roboto",
+                            decoration: TextDecoration.underline,
+                          ),
+                          textAlign: TextAlign.center,
+                  )
+                ),
+              ]
+          )
         );
 
+
+  final Fbbutton = Material(
+          // elevation: 5.0,
+          color: Color.fromARGB(0, 255, 255, 255),
+          child: SignInButton(
+                Buttons.Facebook,
+                mini: true,
+                onPressed: () {
+                  _loginWithFB(context);
+                },
+              )
+        );
     return Scaffold(
           body: Center(
             child: Container(
@@ -106,12 +141,10 @@ checkLogin(context) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: 100.0,
-                      width: 85,
-                      margin: EdgeInsets.all(30),
-                      child: new CircleAvatar(
-                          backgroundImage: new AssetImage('assets/images/mask-group-2.png'),
-                        ) 
+                      height: 200.0,
+                      width: 125,
+                      child: new Image.asset('assets/images/saints-icon.png'),
+                        
                     ),
                     SizedBox (
                       child: Container(
@@ -139,16 +172,39 @@ checkLogin(context) {
                     SizedBox(
                       height: 15.0,
                     ),
-                    Container (
-                      child: Text('or')
-                    ),
                     SizedBox(
-                      height: 15.0,
+                      height: 5.0,
                     ),
-                    UseFacebook
+                    signUpText,
+                      Expanded(
+                        child: Align(
+                           alignment: FractionalOffset.bottomCenter,
+                           child: MaterialButton(
+                            onPressed: () => {},
+                             child: ListView (
+                                 children: <Widget>[
+                                   Container (
+                                    child: Text('Login with Social Networks',
+                                    textAlign: TextAlign.center, )
+                                   ),
+                                   Container (
+                                     child: Row (
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                      Fbbutton
+                                     ],)
+                                   )
+                                   
+                                 ],
+                             ) 
+                          ),
+                         ),
+                      ),
                   ],
                 ),
+                
               ),
+              
             ),
           ),
         );
