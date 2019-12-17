@@ -286,7 +286,7 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
                                   height: 43,
                                   margin: EdgeInsets.only(left: 18),
                                   child: Image.asset(
-                                    "assets`images/refresh.png",
+                                    "assets/images/refresh.png",
                                     fit: BoxFit.fill,
                                   ),
                                 ),
