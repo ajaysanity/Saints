@@ -11,7 +11,7 @@ void main() => runApp(App());
 const String landingRoute = '/';
 const String homeRoute = '/home';
 const String loginRoute = '/login';
-const String testRoute = '/test';
+const String profileRoute = '/profile';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ static Route<dynamic> generateRoute(RouteSettings settings) {
         return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro2Widget());
       case homeRoute:
         return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro3Widget());
-      case testRoute:
+      case profileRoute:
         return MaterialPageRoute(builder: (_) => Profile());
       default:
         return MaterialPageRoute(

@@ -75,27 +75,8 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
             )
           ]),
       drawer: new Drawer(
-          child: Container(
-        alignment: Alignment.center,
-        child: ListView(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-              accountName: new Text(globals.userProfile['name']),
-              accountEmail: new Text(globals.userProfile['email']),
-              currentAccountPicture: new CircleAvatar(
-                backgroundImage: new NetworkImage(
-                    globals.userProfile["picture"]["data"]["url"]),
-              ),
-            ),
-            new ListTile(
-              title: new Text('Home'),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-      )),
+        child: getWidget(context)
+      ),
       body: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -163,6 +144,24 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
                                   textAlign: TextAlign.left,
                                 ),
                               ),
+                            ),
+                            Positioned(
+                              left: 11,
+                              top: 271,
+                              child: new GestureDetector(
+                                  child: Container(
+                                  width: 54,
+                                  height: 50,
+                                  child: Image.asset(
+                                    "assets/images/mask-group-2-2.png",
+                                    fit: BoxFit.none,
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/profile");    
+                                }
+                              )
+                              
                             ),
                           ],
                         ),
@@ -312,4 +311,53 @@ void share(BuildContext context) {
       "If we pray we believe; If we believe, we will love; If we love, we will serve.   -Mother Theresa",
       subject: 'Saints Quotes',
       sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+}
+// Statement to know whether the Data of user is set, if not currently it returns a tester
+Widget getWidget(context) {
+  if (globals.userProfile == null) {
+     return Container (
+          alignment: Alignment.center,
+          child: ListView(
+          children: <Widget>[
+            new UserAccountsDrawerHeader(
+              accountName: new Text('Tester'),
+              accountEmail: new Text('tester@gmail.com'),
+              currentAccountPicture: new CircleAvatar(
+                backgroundImage: new AssetImage('assets/images/mask-group-2-2.png'),
+              ),
+            ),
+            new ListTile(
+              title: new Text('Home'),
+              onTap: () {
+                Navigator.of(context).pop();
+
+              },
+            ),
+          ],
+        ),
+        );
+    
+  } else {
+    return Container (
+          alignment: Alignment.center,
+          child: ListView(
+          children: <Widget>[
+            new UserAccountsDrawerHeader(
+              accountName: new Text(globals.userProfile['name']),
+              accountEmail: new Text(globals.userProfile['email']),
+              currentAccountPicture: new CircleAvatar(
+                backgroundImage: new NetworkImage(globals.userProfile["picture"]["data"]["url"]),
+              ),
+            ),
+            new ListTile(
+              title: new Text('Home'),
+              onTap: () {
+                Navigator.of(context).pop();
+
+              },
+            ),
+          ],
+        ),
+        );
+  }
 }
