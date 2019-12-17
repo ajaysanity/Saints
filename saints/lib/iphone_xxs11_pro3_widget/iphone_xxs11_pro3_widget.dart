@@ -16,7 +16,7 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   String author;
   String quote;
   Icon _searchIcon = new Icon(Icons.search, color: Colors.white);
-  Icon _calendarIcon = Icon(Icons.calendar_today);
+  Icon _calendarIcon = Icon(Icons.calendar_today, color: Colors.white, size: 35);
   Widget appBarTitle = new Text('Search Saints');
   final TextEditingController _searchField = new TextEditingController();
 
@@ -75,8 +75,27 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
             )
           ]),
       drawer: new Drawer(
-        child: getWidget(context)
-      ),
+          child: Container(
+        alignment: Alignment.center,
+        child: ListView(
+          children: <Widget>[
+            new UserAccountsDrawerHeader(
+              accountName: new Text(globals.userProfile['name']),
+              accountEmail: new Text(globals.userProfile['email']),
+              currentAccountPicture: new CircleAvatar(
+                backgroundImage: new NetworkImage(
+                    globals.userProfile["picture"]["data"]["url"]),
+              ),
+            ),
+            new ListTile(
+              title: new Text('Home'),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      )),
       body: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
@@ -92,7 +111,9 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
             Align(
               alignment: Alignment.topRight,
               child: Container(
-                child: IconButton(icon: _calendarIcon)
+                margin: EdgeInsets.only(right: 15),
+                child: IconButton(icon: _calendarIcon,
+                  onPressed: () => Navigator.pushNamed(context, '/calendar'))
               ),
             ),
             Align(
@@ -100,7 +121,7 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
               child: Container(
                 width: 339,
                 height: 390,
-                margin: EdgeInsets.only(left: 12, top: 84),
+                margin: EdgeInsets.only(left: 12, top: 35),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -109,7 +130,7 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
                       top: 0,
                       child: Container(
                         width: 339,
-                        height: 321,
+                        height: 340,
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
@@ -144,24 +165,6 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
                                   textAlign: TextAlign.left,
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              left: 11,
-                              top: 271,
-                              child: new GestureDetector(
-                                  child: Container(
-                                  width: 54,
-                                  height: 50,
-                                  child: Image.asset(
-                                    "assets/images/mask-group-2-2.png",
-                                    fit: BoxFit.none,
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/profile");    
-                                }
-                              )
-                              
                             ),
                           ],
                         ),
@@ -283,7 +286,7 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
                                   height: 43,
                                   margin: EdgeInsets.only(left: 18),
                                   child: Image.asset(
-                                    "assets/images/refresh.png",
+                                    "assets`images/refresh.png",
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -311,53 +314,4 @@ void share(BuildContext context) {
       "If we pray we believe; If we believe, we will love; If we love, we will serve.   -Mother Theresa",
       subject: 'Saints Quotes',
       sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-}
-// Statement to know whether the Data of user is set, if not currently it returns a tester
-Widget getWidget(context) {
-  if (globals.userProfile == null) {
-     return Container (
-          alignment: Alignment.center,
-          child: ListView(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-              accountName: new Text('Tester'),
-              accountEmail: new Text('tester@gmail.com'),
-              currentAccountPicture: new CircleAvatar(
-                backgroundImage: new AssetImage('assets/images/mask-group-2-2.png'),
-              ),
-            ),
-            new ListTile(
-              title: new Text('Home'),
-              onTap: () {
-                Navigator.of(context).pop();
-
-              },
-            ),
-          ],
-        ),
-        );
-    
-  } else {
-    return Container (
-          alignment: Alignment.center,
-          child: ListView(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-              accountName: new Text(globals.userProfile['name']),
-              accountEmail: new Text(globals.userProfile['email']),
-              currentAccountPicture: new CircleAvatar(
-                backgroundImage: new NetworkImage(globals.userProfile["picture"]["data"]["url"]),
-              ),
-            ),
-            new ListTile(
-              title: new Text('Home'),
-              onTap: () {
-                Navigator.of(context).pop();
-
-              },
-            ),
-          ],
-        ),
-        );
-  }
 }

@@ -1,4 +1,5 @@
 
+import 'package:Saints/calendar/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:Saints/iphone_xxs11_pro1_widget/iphone_xxs11_pro1_widget.dart';
 import 'package:Saints/iphone_xxs11_pro2_widget/iphone_xxs11_pro2_widget.dart';
@@ -12,6 +13,7 @@ const String landingRoute = '/';
 const String homeRoute = '/home';
 const String loginRoute = '/login';
 const String profileRoute = '/profile';
+const String calendarRoute = '/calendar';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,8 @@ static Route<dynamic> generateRoute(RouteSettings settings) {
         return MaterialPageRoute(builder: (_) => IPhoneXXS11Pro3Widget());
       case profileRoute:
         return MaterialPageRoute(builder: (_) => Profile());
+      case calendarRoute:
+        return MaterialPageRoute(builder: (_) => CalendarWidget());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
