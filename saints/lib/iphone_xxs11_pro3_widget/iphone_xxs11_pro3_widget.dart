@@ -16,27 +16,26 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   String author;
   String quote;
   Icon _searchIcon = new Icon(Icons.search, color: Colors.white);
-  Widget appBarTitle = new Text( 'Search Saints' );
+  Icon _calendarIcon = Icon(Icons.calendar_today);
+  Widget appBarTitle = new Text('Search Saints');
   final TextEditingController _searchField = new TextEditingController();
 
   // ignore: missing_return
   Future getQuote() async {
     var response = await http
         .get("https://us-central1-saints-3506b.cloudfunctions.net/api/quote");
-      setState(() {
-        var datum = json.decode(response.body);
-        author = datum[0]['data']['author'];
-        quote = datum[0]['data']['quote'];
-
-      });
-
+    setState(() {
+      var datum = json.decode(response.body);
+      author = datum[0]['data']['author'];
+      quote = datum[0]['data']['quote'];
+    });
   }
 
-  Future searchSaints() async{
-    const url = "https://us-central1-saints-3506b.cloudfunctions.net/api/search";
+  Future searchSaints() async {
+    const url =
+        "https://us-central1-saints-3506b.cloudfunctions.net/api/search";
 
-    var response = await http
-        .get("$url?author=${_searchField.text}");
+    var response = await http.get("$url?author=${_searchField.text}");
 
     setState(() {
       var datum = json.decode(response.body);
@@ -56,27 +55,25 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Container(
-          child: TextField(
-            controller: _searchField,
-            style: TextStyle(color: Colors.white),
-            decoration: new InputDecoration(
-                hintText: 'Search Saints',
-                hintStyle: TextStyle(color: Colors.white),
-                border: InputBorder.none
+          centerTitle: true,
+          title: Container(
+            child: TextField(
+              controller: _searchField,
+              style: TextStyle(color: Colors.white),
+              decoration: new InputDecoration(
+                  hintText: 'Search Saints',
+                  hintStyle: TextStyle(color: Colors.white),
+                  border: InputBorder.none),
             ),
+            alignment: Alignment.centerRight,
           ),
-          alignment: Alignment.centerRight,
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: _searchIcon,
-            tooltip: 'Search Saints',
-            onPressed: searchSaints,
-          )
-        ]
-      ),
+          actions: <Widget>[
+            IconButton(
+              icon: _searchIcon,
+              tooltip: 'Search Saints',
+              onPressed: searchSaints,
+            )
+          ]),
       drawer: new Drawer(
           child: Container(
         alignment: Alignment.center,
@@ -111,6 +108,12 @@ class _IphoneXXS11Pro3WidgetState extends State<IPhoneXXS11Pro3Widget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                child: IconButton(icon: _calendarIcon)
+              ),
+            ),
             Align(
               alignment: Alignment.topLeft,
               child: Container(
