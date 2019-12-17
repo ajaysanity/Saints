@@ -38,199 +38,119 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
     }
 
   }
+  
+  // for authentication login
+checkLogin(context) {
+  Navigator.pushNamed(context, "/home");   
+}
 
+      TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   @override
   Widget build(BuildContext context) {
-  
+    final emailField = TextField(
+          obscureText: false,
+          style: style,
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+              hintText: "Email",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+        );
+        final passwordField = TextField(
+          obscureText: true,
+          style: style,
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+              hintText: "Password",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+        );
+        final loginButon = Material(
+          elevation: 5.0,
+          borderRadius: BorderRadius.circular(30.0),
+          color: Color(0xff01A0C7),
+          child: MaterialButton(
+            minWidth: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            onPressed: () {},
+            child: Text("Login",
+                textAlign: TextAlign.center,
+                style: style.copyWith(
+                    color: Colors.white, fontWeight: FontWeight.bold)),
+          ),
+        );
+       
+       final UseFacebook = Material(
+          elevation: 5.0,
+          borderRadius: BorderRadius.circular(30.0),
+          color: Color(0xff01A0C7),
+          child: MaterialButton(
+            minWidth: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            onPressed: () {},
+            child: Text("Sign up",
+                textAlign: TextAlign.center,
+                style: style.copyWith(
+                    color: Colors.white, fontWeight: FontWeight.bold)),
+          ),
+        );
+
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-              top: 259,
-              bottom: 128,
-              child: Container(
-                width: 328,
+          body: Center(
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(36.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Align(
-                      alignment: Alignment.topCenter,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      height: 100.0,
+                      width: 85,
+                      margin: EdgeInsets.all(30),
+                      child: new CircleAvatar(
+                          backgroundImage: new AssetImage('assets/images/mask-group-2.png'),
+                        ) 
+                    ),
+                    SizedBox (
                       child: Container(
                         width: 326,
                         child: Text(
                           "Hi There,\nWelcome to Saints!",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 83, 91, 255),
-                            fontSize: 30,
+                            color: Color(0xff01A0C7),
+                            fontSize: 20,
                             letterSpacing: 1.02,
                             fontFamily: "Roboto",
                           ),
-                          textAlign: TextAlign.left,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        width: 328,
-                        height: 3,
-                        margin: EdgeInsets.only(top: 97),
-                        child: Image.asset(
-                          "assets/images/path-1.png",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                    SizedBox(height: 45.0),
+                    emailField,
+                    SizedBox(height: 25.0),
+                    passwordField,
+                    SizedBox(
+                      height: 35.0,
                     ),
-                    Spacer(),
-                    Align(
-                      
-                      alignment: Alignment.topCenter,
-                      
-                      child: new GestureDetector(
-                         child: Container(
-                        width: 326,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 83, 91, 255),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(82, 0, 0, 0),
-                              offset: Offset(0, 3),
-                              blurRadius: 6,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(6)),
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Positioned(
-                              left: 55,
-                              child: Container(
-                                width: 1,
-                                height: 1,
-                                child: Image.asset(
-                                  "assets/images/pressed.png",
-                                  fit: BoxFit.none,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              child: Text(
-                                "Log In",
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 20,
-                                  letterSpacing: 0.68,
-                                  fontFamily: "Roboto",
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                        onTap: () {
-                            checkLogin(context);
-                         }
-                      )
+                    loginButon,
+                    SizedBox(
+                      height: 15.0,
                     ),
-                     Spacer(),
-                    Align(
-                      
-                      alignment: Alignment.topCenter,
+                    Container (
                       child: Text('or')
-                     
                     ),
-                     Spacer(),
-                    Align(
-                      
-                      alignment: Alignment.topCenter,
-                      
-                      child: new GestureDetector(
-                         child: Container(
-                        width: 326,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 83, 91, 255),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(82, 0, 0, 0),
-                              offset: Offset(0, 3),
-                              blurRadius: 6,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(6)),
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Positioned(
-                              left: 55,
-                              child: Container(
-                                width: 1,
-                                height: 1,
-                                child: Image.asset(
-                                  "assets/images/pressed.png",
-                                  fit: BoxFit.none,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              child: Text(
-                                "Use Facebook",
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255),
-                                  fontSize: 20,
-                                  letterSpacing: 0.68,
-                                  fontFamily: "Roboto",
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                        onTap: () {
-                            _loginWithFB(context);
-                         }
-
-                      )
+                    SizedBox(
+                      height: 15.0,
                     ),
+                    UseFacebook
                   ],
                 ),
               ),
             ),
-            Positioned(
-              child: Container(
-                width: 326,
-                child: Text(
-                  "Enter your username: \n mark",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 83, 91, 255),
-                    fontSize: 20,
-                    letterSpacing: 0.68,
-                    fontFamily: "Roboto",
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-// for authentication login
-checkLogin(context) {
-  if (!globals.isLoggedIn) {
-    Navigator.pushNamed(context, "/home");    
+          ),
+        );
   }
 }

@@ -11,7 +11,7 @@ void main() => runApp(App());
 const String landingRoute = '/';
 const String homeRoute = '/home';
 const String loginRoute = '/login';
-const String testRoute = '/test';
+const String profileRoute = '/profile';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
