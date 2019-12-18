@@ -45,30 +45,32 @@ checkLogin(context) {
   Navigator.pushNamed(context, "/home");   
 }
 
-      TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  TextStyle style = TextStyle(fontFamily: 'Roboto', fontSize: 17.0);
   @override
   Widget build(BuildContext context) {
     final emailField = TextField(
           obscureText: false,
           style: style,
           decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+              filled: true,
+              fillColor: Colors.white70.withOpacity(0),
+              contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
               hintText: "Email",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
         );
         final passwordField = TextField(
           obscureText: true,
           style: style,
           decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+              filled: true,
+              fillColor: Colors.white70.withOpacity(0),
+              contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
               hintText: "Password",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
         );
         final loginButon = Material(
           elevation: 5.0,
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(10.0),
           color: Color(0xff01A0C7),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
@@ -77,20 +79,20 @@ checkLogin(context) {
             child: Text("Login",
                 textAlign: TextAlign.center,
                 style: style.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
+                    color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17.0)),
           ),
         );
        
        final signUpText = Material(
           // elevation: 5.0,
           color: Color.fromARGB(0, 255, 255, 255),
-          child: Column(
+          child: Row (
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,      
               children: <Widget>[
                 Container (
                   child: Text(
-                          "Don't have an account?",
+                          "Don't have an account?  ",
                           style: TextStyle(
                             color: Color(0xff01A0C7),
                             fontSize: 12,
@@ -114,10 +116,9 @@ checkLogin(context) {
                           ),
                           textAlign: TextAlign.center,
                   ), onTap: () {
-                    Navigator.pushNamed(context, 'signUp');
+                      Navigator.pushNamed(context, "/signUp");     
                   },
                   )
-                 
                 ),
               ]
           )
@@ -136,9 +137,14 @@ checkLogin(context) {
               )
         );
     return Scaffold(
-          body: Center(
+          body: SingleChildScrollView(
             child: Container(
-              color: Colors.white,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+              gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [ Colors.white, Colors.blue[300],])),
               child: Padding(
                 padding: const EdgeInsets.all(36.0),
                 child: Column(
@@ -181,6 +187,9 @@ checkLogin(context) {
                       height: 5.0,
                     ),
                     signUpText,
+                    SizedBox(
+                      height: 20.0,
+                    ),
                       Expanded(
                         child: Align(
                            alignment: FractionalOffset.bottomCenter,
@@ -193,7 +202,7 @@ checkLogin(context) {
                                     textAlign: TextAlign.center, )
                                    ),
                                    Container (
-                                     child: Row (
+                                     child: Row ( 
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
                                       Fbbutton

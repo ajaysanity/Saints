@@ -9,87 +9,147 @@ import 'package:Saints/providers/globals.dart' as globals;
 // Login Page
 class SignUp extends StatelessWidget {
   
-  final firstName = TextEditingController();
-  final lastName = TextEditingController();
-  final phone = TextEditingController();
+  static final _formKey = new GlobalKey<FormState>(); 
 
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   @override
   Widget build(BuildContext context) {
-    final emailField = TextField(
+   
+    return MaterialApp(
+          home: Scaffold(
+            body: MyCustomForm(),
+          ),
+        );
+      }
+    }
+
+class MyCustomForm extends StatefulWidget {
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+// Create a corresponding State class.
+// This class holds data related to the form.
+class MyCustomFormState extends State<MyCustomForm> {
+  // Create a global key that uniquely identifies the Form widgetr
+  // and allows validation of the form.
+  //
+  // Note: This is a GlobalKey<FormState>,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    
+  final name = TextEditingController();
+  final email = TextEditingController();
+  String password = '';
+  TextStyle style = TextStyle(fontFamily: 'Roboto', fontSize: 17.0, color: Colors.black);
+     final emailField = TextFormField(
+            validator: (value) {
+              if (value.isEmpty) {
+                  return 'Please enter your email';
+                  }
+              return null;
+            },
           obscureText: false,
           style: style,
           decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            // errorStyle: TextStyle(color: Colors.red[100]),
+            filled: true,
+            fillColor: Colors.white70.withOpacity(0),
+              contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
               hintText: "Email",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+              ),
         );
-        final passwordField = TextField(
+
+    final nameField = TextFormField(
+            validator: (value) {
+              if (value.isEmpty) {
+                  return 'Please enter your Name';
+                }
+              return null;
+            },
           obscureText: true,
           style: style,
           decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-              hintText: "Password",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              filled: true,
+              fillColor: Colors.white70.withOpacity(0),
+              contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
+              hintText: "Name",
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
         );
+
+    final passwordField = TextFormField(
+            validator: (value) {
+              if (value.isEmpty) {
+                  return 'Please enter your Password';
+              } else {
+                password = value;
+              }
+              return null;
+            },
+          obscureText: true,
+          style: style,
+          decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white70.withOpacity(0),
+              contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
+              hintText: "Password",
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
+        );
+
+     final confirmPasswordField = TextFormField(
+            validator: (value) {
+              if (value.isEmpty) {
+                  return 'Please confirm your Password';
+                } else if (value != password) {
+                  return 'Password is not the same';
+                }
+              return null;
+            },
+          obscureText: true,
+          style: style,
+          decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white70.withOpacity(0),
+              contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
+              hintText: "Confirm Password",
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
+        );
+    
         final signUpButton = Material(
           elevation: 5.0,
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(10.0),
           color: Color(0xff01A0C7),
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            onPressed: () {},
-            child: Text("Continue",
+            onPressed: () {
+               if (_formKey.currentState.validate()) {
+                  // If the form is valid, display a Snackbar.
+                  Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text('Processing Data')));
+                }
+            },
+            child: Text("Submit",
                 textAlign: TextAlign.center,
                 style: style.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
+                    color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
           ),
         );
        
-       final signUpText = Material(
-          // elevation: 5.0,
-          color: Color.fromARGB(0, 255, 255, 255),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,      
-              children: <Widget>[
-                Container (
-                  child: Text(
-                          "Don't have an account?",
-                          style: TextStyle(
-                            color: Color(0xff01A0C7),
-                            fontSize: 12,
-                            letterSpacing: 1.02,
-                            fontFamily: "Roboto",
-                          ),
-                          textAlign: TextAlign.center,
-                  )
-                ),
-                Container (
-                  margin: const EdgeInsets.only(bottom: 5.0),
-                  child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Color(0xff01A0C7),
-                            fontSize: 14,
-                            letterSpacing: 1.02,
-                            fontFamily: "Roboto",
-                            decoration: TextDecoration.underline,
-                          ),
-                          textAlign: TextAlign.center,
-                  )
-                ),
-              ]
-          )
-        );
-
-    return Scaffold(
-          body: Center(
+    // Build a Form widget using the _formKey created above.
+    return SingleChildScrollView(
             child: Container(
-              color: Colors.white,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+              gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [ Colors.white, Colors.blue[300],])),
               child: Padding(
                 padding: const EdgeInsets.all(36.0),
                 child: Column(
@@ -102,29 +162,29 @@ class SignUp extends StatelessWidget {
                       child: new Image.asset('assets/images/saints-icon.png'),
                         
                     ),
-                    SizedBox (
-                      child: Container(
-                        width: 326,
-                        child: Text(
-                          "Hi There,\nWelcome to Saints!",
-                          style: TextStyle(
-                            color: Color(0xff01A0C7),
-                            fontSize: 20,
-                            letterSpacing: 1.02,
-                            fontFamily: "Roboto",
+                    Form (
+                         key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              emailField,
+                               SizedBox(height: 15.0), 
+                               nameField,
+                                SizedBox(
+                                  height: 15.0,
+                                ),
+                                passwordField,
+                                SizedBox(
+                                  height: 15.0,
+                                ),
+                                confirmPasswordField,
+                                SizedBox(
+                                  height: 35.0,
+                                ),
+                                signUpButton
+                            ],
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
                     ),
-                    SizedBox(height: 45.0),
-                    emailField,
-                    SizedBox(height: 25.0),
-                    passwordField,
-                    SizedBox(
-                      height: 35.0,
-                    ),
-                    signUpButton
+                   
                      
                   ],
                 ),
@@ -132,7 +192,7 @@ class SignUp extends StatelessWidget {
               ),
               
             ),
-          ),
-        );
+          );
   }
 }
+   
