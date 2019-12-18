@@ -12,7 +12,7 @@ class IPhoneXXS11Pro2Widget extends StatelessWidget {
 
   _loginWithFB(context) async{
     
-    final result = await facebookLogin.logInWithReadPermissions(['email']);
+    final result = await facebookLogin.logIn(['email']);
     
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
