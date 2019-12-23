@@ -1,4 +1,5 @@
 
+import 'package:Saints/authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +24,12 @@ class SignUp extends StatelessWidget {
     }
 
 class MyCustomForm extends StatefulWidget {
+  
+  
+  MyCustomForm({this.auth, this.loginCallback});
+  final BaseAuth auth;
+  final VoidCallback loginCallback;
+
   @override
   MyCustomFormState createState() {
     return MyCustomFormState();
@@ -37,8 +44,43 @@ class MyCustomFormState extends State<MyCustomForm> {
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
+  
+   String _email;
+  String _password;
+  String _name;
+  String _errorMessage;
+    bool _isLoginForm;
+  bool _isLoading;
   final _formKey = GlobalKey<FormState>();
+   final facebookLogin = FacebookLogin();
 
+   void validateAndSubmit() async {
+    setState(() {
+      _errorMessage = "";
+      _isLoading = true;
+    });
+      String userId = "";
+      try {
+        userId = await widget.auth.signUp(_email, _password, _name);
+        //widget.auth.sendEmailVerification();
+        //_showVerifyEmailSentDialog();
+        print('Signed up user: $userId');
+        setState(() {
+          _isLoading = false;
+        });
+
+        if (userId.length > 0 && userId != null && _isLoginForm) {
+          widget.loginCallback();
+        }
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
+        });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     
@@ -48,6 +90,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   TextStyle style = TextStyle(fontFamily: 'Roboto', fontSize: 17.0, color: Colors.black);
      final emailField = TextFormField(
             validator: (value) {
+              _email = value;
               if (value.isEmpty) {
                   return 'Please enter your email';
                   }
@@ -59,14 +102,18 @@ class MyCustomFormState extends State<MyCustomForm> {
             // errorStyle: TextStyle(color: Colors.red[100]),
             filled: true,
             fillColor: Colors.white70.withOpacity(0),
-              contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
+              contentPadding: EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 10.0),
               hintText: "Email",
               hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+              icon: new Icon(
+              Icons.mail_outline,
+              color: Colors.black,
+                ),
               ),
         );
-
     final nameField = TextFormField(
             validator: (value) {
+              _name = value;
               if (value.isEmpty) {
                   return 'Please enter your Name';
                 }
@@ -79,7 +126,11 @@ class MyCustomFormState extends State<MyCustomForm> {
               fillColor: Colors.white70.withOpacity(0),
               contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
               hintText: "Name",
-              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+              icon: new Icon(
+              Icons.person_outline,
+              color: Colors.black,
+                ),),
         );
 
     final passwordField = TextFormField(
@@ -88,6 +139,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   return 'Please enter your Password';
               } else {
                 password = value;
+                _password = password;
               }
               return null;
             },
@@ -98,7 +150,11 @@ class MyCustomFormState extends State<MyCustomForm> {
               fillColor: Colors.white70.withOpacity(0),
               contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
               hintText: "Password",
-              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+              icon: new Icon(
+              Icons.lock_outline,
+              color: Colors.black,
+                ),),
         );
 
      final confirmPasswordField = TextFormField(
@@ -117,7 +173,11 @@ class MyCustomFormState extends State<MyCustomForm> {
               fillColor: Colors.white70.withOpacity(0),
               contentPadding: EdgeInsets.fromLTRB(5.0, 10.0, 20.0, 10.0),
               hintText: "Confirm Password",
-              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),),
+              hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+              icon: new Icon(
+              Icons.lock_outline,
+              color: Colors.black,
+                ),),
         );
     
         final signUpButton = Material(
@@ -129,7 +189,6 @@ class MyCustomFormState extends State<MyCustomForm> {
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
             onPressed: () {
                if (_formKey.currentState.validate()) {
-                  // If the form is valid, display a Snackbar.
                   Scaffold.of(context)
                       .showSnackBar(SnackBar(content: Text('Processing Data')));
                 }
@@ -139,8 +198,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 style: style.copyWith(
                     color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
           ),
-        );
-       
+        );  
     // Build a Form widget using the _formKey created above.
     return SingleChildScrollView(
             child: Container(
@@ -151,13 +209,13 @@ class MyCustomFormState extends State<MyCustomForm> {
               end: Alignment.bottomLeft,
               colors: [ Colors.white, Colors.blue[300],])),
               child: Padding(
-                padding: const EdgeInsets.all(36.0),
+                padding: const EdgeInsets.all(28.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: 200.0,
+                      height: 150.0,
                       width: 125,
                       child: new Image.asset('assets/images/saints-icon.png'),
                         
@@ -166,26 +224,41 @@ class MyCustomFormState extends State<MyCustomForm> {
                          key: _formKey,
                           child: Column(
                             children: <Widget>[
+                              SizedBox (
+                                child: Container(
+                                  width: 326,
+                                  child: Text(
+                                    "Create Account",
+                                    style: TextStyle(
+                                      color: Color(0xff01A0C7),
+                                      fontSize: 25,
+                                      letterSpacing: 1.02,
+                                      fontFamily: "Roboto",
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                               SizedBox(height: 25.0), 
                               emailField,
-                               SizedBox(height: 15.0), 
+                               SizedBox(height: 25.0), 
                                nameField,
                                 SizedBox(
-                                  height: 15.0,
+                                  height: 25.0,
                                 ),
                                 passwordField,
                                 SizedBox(
-                                  height: 15.0,
+                                  height: 25.0,
                                 ),
                                 confirmPasswordField,
                                 SizedBox(
-                                  height: 35.0,
+                                  height: 45.0,
                                 ),
                                 signUpButton
                             ],
                           ),
                     ),
                    
-                     
                   ],
                 ),
                 
