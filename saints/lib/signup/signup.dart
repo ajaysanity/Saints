@@ -26,8 +26,8 @@ class SignUp extends StatelessWidget {
 class MyCustomForm extends StatefulWidget {
   
   
-  MyCustomForm({this.auth, this.loginCallback});
-  final BaseAuth auth;
+  MyCustomForm({this.loginCallback});
+  final BaseAuth auth = new Auth();
   final VoidCallback loginCallback;
 
   @override
@@ -55,31 +55,16 @@ class MyCustomFormState extends State<MyCustomForm> {
    final facebookLogin = FacebookLogin();
 
    void validateAndSubmit() async {
-    setState(() {
-      _errorMessage = "";
-      _isLoading = true;
-    });
       String userId = "";
       try {
         userId = await widget.auth.signUp(_email, _password, _name);
-        //widget.auth.sendEmailVerification();
-        //_showVerifyEmailSentDialog();
         print('Signed up user: $userId');
         setState(() {
           _isLoading = false;
         });
-
-        if (userId.length > 0 && userId != null && _isLoginForm) {
-          widget.loginCallback();
-        }
       } catch (e) {
-        print('Error: $e');
-        setState(() {
-          _isLoading = false;
-          _errorMessage = e.message;
-          _formKey.currentState.reset();
-        });
-    }
+        print('this Error: $e');
+      }
   }
   @override
   Widget build(BuildContext context) {
@@ -119,7 +104,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                 }
               return null;
             },
-          obscureText: true,
           style: style,
           decoration: InputDecoration(
               filled: true,
@@ -191,6 +175,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                if (_formKey.currentState.validate()) {
                   Scaffold.of(context)
                       .showSnackBar(SnackBar(content: Text('Processing Data')));
+                  validateAndSubmit();
                 }
             },
             child: Text("Submit",
