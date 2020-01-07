@@ -27,13 +27,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             'together with a firm and deeply felt conviction that any good we may have in our life comes from Him alone, '
             'since He is the source of all good. \n \n-Fr. Jack Sparks'],
       sampleDay.add(Duration(days: 2)): ['During prayer, intentional, deliberate, extreme humility is indispensable. \n\n-St. John of Kronstadt'],
-      sampleDay.add(Duration(days: 3)): ['By its nature, the cross is the strongest and deepest degree of love.\n\n-Metropolitan Saba(Esber)'],
-      sampleDay.add(Duration(days: 4)): ['It is well known that obedience is the chief among the initiatory virtues, for first it displaces presumption and then it engenders humility within us.\n\n-St. Diadochos of Photiki'],
-      sampleDay.add(Duration(days: 5)): ['The spiritual person must attain such a spiritual condition that even if God does not grant him Paradise, he will not be disturbed.\n\n-Elder Paisios of Mount Athos'],
-      sampleDay.add(Duration(days: 6)): ['Be diligent and avoid idleness. For as diligence is pleasing to God, so idleness on the contrary, as a source of every evil, is a sin very offensive to God.\n\n-St. Theophan the Recluse'],
-      sampleDay.add(Duration(days: 7)): ['We must repent and leave behind our former way of life with all our bad habits, and we must strive to learn obedience.\n\n-Elder Thaddeus of Vitovnica'],
-
-
+      sampleDay.add(Duration(days: 3)): ['By its nature, the cross is the strongest and deepest degree of love.\n\n-Metropolitan Saba(Esber)']
     };
   }
 

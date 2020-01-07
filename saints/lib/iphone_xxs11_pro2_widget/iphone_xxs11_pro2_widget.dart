@@ -12,7 +12,7 @@ class Login extends StatelessWidget {
   final facebookLogin = FacebookLogin();
   _loginWithFB(context) async{
     
-    final result = await facebookLogin.logIn(['email']);
+    final result = await facebookLogin.logInWithReadPermissions(['email']);
     
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
