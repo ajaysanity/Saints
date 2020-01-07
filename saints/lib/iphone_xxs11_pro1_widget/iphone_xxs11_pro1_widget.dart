@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:Saints/iphone_xxs11_pro2_widget/iphone_xxs11_pro2_widget.dart';
 
 
 class IPhoneXXS11Pro1Widget extends StatelessWidget {
@@ -100,7 +99,7 @@ class IPhoneXXS11Pro1Widget extends StatelessWidget {
                         ),
                       ),
                          onTap: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));   
+                            Navigator.pushNamed(context, "/login");
                          }
                       ),
                      
