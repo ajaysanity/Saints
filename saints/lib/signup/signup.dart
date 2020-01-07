@@ -23,6 +23,15 @@ class SignUp extends StatelessWidget {
     }
 
 class MyCustomForm extends StatefulWidget {
+<<<<<<< HEAD
+=======
+  
+  
+  MyCustomForm({this.auth, this.loginCallback});
+  final BaseAuth auth;
+  final VoidCallback loginCallback;
+
+>>>>>>> parent of 7449dd5... Sign Up Added method and plugins - not yet complete
   @override
   MyCustomFormState createState() {
     return MyCustomFormState();
@@ -39,6 +48,36 @@ class MyCustomFormState extends State<MyCustomForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
+<<<<<<< HEAD
+=======
+   void validateAndSubmit() async {
+    setState(() {
+      _errorMessage = "";
+      _isLoading = true;
+    });
+      String userId = "";
+      try {
+        userId = await widget.auth.signUp(_email, _password, _name);
+        //widget.auth.sendEmailVerification();
+        //_showVerifyEmailSentDialog();
+        print('Signed up user: $userId');
+        setState(() {
+          _isLoading = false;
+        });
+
+        if (userId.length > 0 && userId != null && _isLoginForm) {
+          widget.loginCallback();
+        }
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
+        });
+    }
+  }
+>>>>>>> parent of 7449dd5... Sign Up Added method and plugins - not yet complete
   @override
   Widget build(BuildContext context) {
     
